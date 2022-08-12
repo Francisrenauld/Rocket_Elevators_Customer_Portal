@@ -1,9 +1,260 @@
-﻿
+﻿@model InterventionModel
 @{
-    ViewData["Title"] = "Intervention";
+	ViewData["Title"] = "Intervention";
 }
 
+<style>
+   .Description{
+       text-align: center
+   }
+</style>
+
 <h1>Intervention</h1>
+
+<form id="myForm" >
+    
+	
+	<label asp-for="Author"><b> Author</b></label>
+    <input type="text" asp-for="Author" class="form-control" value="@ViewBag.Email" readonly=true disabled ></input>
+
+	<label asp-for="Customer_id"><b> Customer ID</b></label>
+    <input type="text" asp-for="Customer_id" value="@ViewBag.customer.Id"  class="form-control" readonly=true disabled ></input>
+
+    <div id="building">
+	    <label for="departmentsDropdown"><b>Choose your building</b></label>
+	    <select  asp-for="Building_id" class="form-control" ></select>
+    </div>
+
+    <div id="battery">
+	    <label for="departmentsDropdown"><b>Choose your Batteries</b></label>
+	    <select asp-for="Battery_id" class="form-control"></select>
+    </div>
+
+    <div id="column">
+	    <label for="departmentsDropdown"><b>Choose your Columns</b></label>
+	    <select asp-for="Column_id" class="form-control" ></select>
+    </div>
+
+    <div id="elevator">
+	    <label for="departmentsDropdown"><b>Choose your Elevators</b></label>
+	    <select asp-for="Elevator_id" class="form-control" ></select>
+    </div>
+
+    <div id="employee">
+	    <label for="departmentsDropdown"><b>Choose an employee for the intervention</b></label>
+	    <select asp-for="Employee_id" class="form-control" ></select>
+    </div>
+
+    <div id="Description">
+        <p><label for="Report"><b>Report</b></label></p>
+        <textarea asp-for="Report" rows="10" cols="50"></textarea>
+    
+
+       <p><input type="submit" value="Submit"></p>
+    </div>
+</form>
+
+@section Scripts
+	{
+	<script type="text/javascript">
+
+$(function() {
+    
+    // Send the request and update course dropdown
+    $.ajax({
+        dataType: "json",
+        cache: false,
+        url: "https://rest-api-francis-renauld.herokuapp.com/api/Building_By_Customer/@ViewBag.customer.Id" ,
+        timeout: 5000,
+        error: function(XMLHttpRequest, errorTextStatus, error) {
+            alert("Failed to submit : " + errorTextStatus + " ;" + error);
+        },
+        success: function(data) {
+            
+            // Clear all options from course select
+            $("select#Building_id option").remove();
+            //put in a empty default line
+            var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+            $(row).appendTo("select#Building_id");
+            // Fill course select
+            $.each(data, function(i, j) {
+                row = "<option value=\"" + j.id + "\">" + j.id +  "/" + j.full_Name_Of_The_Building_Administrator + "</option>";
+                $(row).appendTo("select#Building_id");
+            });
+        } 
+    });
+
+	           if ($("select#Building_id").val() == "") {
+        $("select#Battery_id option").remove();
+        var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+        console.log(row);
+        $(row).appendTo("select#Battery_id");
+    }
+    $("select#Building_id").change(function () {
+        var id_value_string = $(this).val();
+        if (id_value_string == "") {
+            $("select#Battery_id option").remove();
+            var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+            console.log(row);
+            $(row).appendTo("select#Battery_id");
+        } else {
+            // Send the request and update course dropdown
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: 'https://rest-api-francis-renauld.herokuapp.com/api/Battery_By_Building/' + id_value_string,
+                timeout: 5000,
+                error: function (XMLHttpRequest, errorTextStatus, error) {
+                    alert("Failed to submit : " + errorTextStatus + " ;" + error);
+                },
+                success: function (data) {
+                    // Clear all options from course select
+                    $("select#Battery_id option").remove();
+                    //put in a empty default line
+                    var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+                    console.log(row);
+                    $(row).appendTo("select#Battery_id");
+                    // Fill course select
+                    $.each(data, function (i, j) {
+                        row = "<option value=\"" + j.id + "\">" + j.id + "/" + j.type + "</option>";
+                        $(row).appendTo("select#Battery_id");
+                    });
+                }
+            });
+        }
+    });
+
+    if ($("select#Battery_id").val() == "") {
+        $("select#Column_id option").remove();
+        var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+        console.log(row);
+        $(row).appendTo("select#Column_id");
+    }
+    $("select#Battery_id").change(function () {
+        var id_value_string = $(this).val();
+        if (id_value_string == "") {
+            $("select#Column_id option").remove();
+            var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+            console.log(row);
+            $(row).appendTo("select#Column_id");
+        } else {
+            // Send the request and update course dropdown
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: 'https://rest-api-francis-renauld.herokuapp.com/api/Column_By_Battery/' + id_value_string,
+                timeout: 5000,
+                error: function (XMLHttpRequest, errorTextStatus, error) {
+                    alert("Failed to submit : " + errorTextStatus + " ;" + error);
+                },
+                success: function (data) {
+                    // Clear all options from course select
+                    $("select#Column_id option").remove();
+                    //put in a empty default line
+                    var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+                    console.log(row);
+                    $(row).appendTo("select#Column_id");
+                    // Fill course select
+                    $.each(data, function (i, j) {
+                        row = "<option value=\"" + j.id + "\">" + j.id + "/" + j.type + "</option>";
+                        $(row).appendTo("select#Column_id");
+                    });
+                }
+            });
+        }
+    });
+        if ($("select#Column_id").val() == "") {
+        $("select#Elevator_id option").remove();
+        var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+        console.log(row);
+        $(row).appendTo("select#Elevator_id");
+    }
+    $("select#Column_id").change(function () {
+        var id_value_string = $(this).val();
+        if (id_value_string == "") {
+            $("select#Elevator_id option").remove();
+            var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+            console.log(row);
+            $(row).appendTo("select#elevatorDropdown");
+        } else {
+            // Send the request and update course dropdown
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: 'https://rest-api-francis-renauld.herokuapp.com/api/Elevator_By_Column/' + id_value_string,
+                timeout: 5000,
+                error: function (XMLHttpRequest, errorTextStatus, error) {
+                    alert("Failed to submit : " + errorTextStatus + " ;" + error);
+                },
+                success: function (data) {
+                    // Clear all options from course select
+                    $("select#Elevator_id option").remove();
+                    //put in a empty default line
+                    var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+                    console.log(row);
+                    $(row).appendTo("select#Elevator_id");
+                    // Fill course select
+                    $.each(data, function (i, j) {
+                        row = "<option value=\"" + j.id + "\">" + j.id + "/" + j.model + "</option>";
+                        $(row).appendTo("select#Elevator_id");
+                    });
+                }
+            });
+        }
+    });
+
+            $.ajax({
+                dataType: "json",
+                cache: false,
+                url: 'https://rest-api-francis-renauld.herokuapp.com/api/Employee',
+                timeout: 5000,
+                error: function (XMLHttpRequest, errorTextStatus, error) {
+                    alert("Failed to submit : " + errorTextStatus + " ;" + error);
+                },
+                success: function (data) {
+                    var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
+                    $(row).appendTo("select#Employee_id");
+                    // Fill course select
+                    $.each(data, function (i, j) {
+                        row = "<option value=\"" + j.id + "\">" + j.id + "/" + j.first_Name + " " + j.last_Name + "</option>";
+                        $(row).appendTo("select#Employee_id");
+                    });
+                }
+            });
+});
+
+$(document).ready(function () {
+    $("#building").show();
+    $("#battery").hide();
+    $("#column").hide();
+    $("#elevator").hide();
+
+});
+
+$(document).on('change', "#Building_id", function () {
+
+    $("#battery").show();
+    $("#column").hide();
+    $("#elevator").hide();
+
+});
+$(document).on('change', "#Battery_id", function () {
+
+    $("#column").show();
+
+    $("#elevator").hide();
+
+});
+$(document).on('change', "#Column_id", function () {
+
+    $("#elevator").show();
+});
+</script>
+}
+
+
+
+
 
 
 

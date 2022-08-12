@@ -75,6 +75,10 @@
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
               "version": "[6.0.2, )"
+            },
+            "WebApiContrib.Formatting.Jsonp": {
+              "target": "Package",
+              "version": "[3.0.2, )"
             }
           },
           "imports": [

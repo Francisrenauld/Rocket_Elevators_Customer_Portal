@@ -2,115 +2,41 @@
 	ViewBag.title = "Your Products";
 }
 <style>
-	td{
+	td {
 		padding: 10px;
 		text-align: center
 	}
-	th{
+
+	th {
 		text-align: center
 	}
 </style>
 
 <h2>Your Products</h2>
 
-	<table>
-		@{
-						<tr>
-							<th>Building </th>
-						</tr>
-
-						<tr>
-							<th>ID</th>
-							<th>Name Of The Building Administrator</th>
-						</tr>
-
-
-
-			foreach (var customer in @ViewBag.customer)
-			{
-				foreach (var building in customer.Buildings)
-				{
-								<tr>
-									<td>@building.Id</td>
-									<td>@building.Full_Name_Of_The_Building_Administrator</td>
-								</tr>
-					foreach (var Battery in building.batteries)
-					{
-						foreach (var Column in Battery.columns)
-						{
-							foreach (var Elevator in Column.elevators)
-							{
-
-							}
-						}
-					}
-				}
-			}
-		}
-	</table>
-
-	<table>
-		@{
-						<tr>
-							<th>Batteries</th>
-						</tr>
-						<tr>
-							<th>ID</th>
-							<th>Status</th>
-							<th>Certificate Of Operations</th>
-							<th>Notes</th>
-							<th>Date Of Commissioning</th>
-						</tr>
-			foreach (var customer in @ViewBag.customer)
-			{
-				foreach (var building in customer.Buildings)
-				{
-					foreach (var Battery in building.batteries)
-					{
-									<tr>
-										<td>@Battery.Id</td>
-										<td>@Battery.Status</td>
-										<td>@Battery.Certificate_Of_Operations</td>
-										<td>@Battery.Notes</td>
-										<td>@Battery.Date_Of_Commissioning</td>
-									</tr>
-						foreach (var Column in Battery.columns)
-						{
-							foreach (var Elevator in Column.elevators)
-							{
-
-							}
-						}
-					}
-				}
-			}
-		}
-	</table>
-
-	<table>
+<table>
 	@{
-					<tr>
-						<th>Columns</th>
-					</tr>
-					<tr>
-						<th>ID</th>
-						<th>Status</th>
-						<th>Notes</th>
-					</tr>
+		<tr>
+			<th>Building </th>
+		</tr>
+
+		<tr>
+			<th>ID</th>
+			<th>Name Of The Building Administrator</th>
+		</tr>
+
 		foreach (var customer in @ViewBag.customer)
 		{
 			foreach (var building in customer.Buildings)
 			{
+				<tr>
+					<td>@building.Id</td>
+					<td>@building.Full_Name_Of_The_Building_Administrator</td>
+				</tr>
 				foreach (var Battery in building.batteries)
 				{
-
 					foreach (var Column in Battery.columns)
 					{
-									<tr>
-										<td>@Column.Id</td>
-										<td>@Column.Status</td>
-										<td>@Column.Notes</td>
-									</tr>
 						foreach (var Elevator in Column.elevators)
 						{
 
@@ -120,44 +46,117 @@
 			}
 		}
 	}
-	</table>
+</table>
 
-	<table>
-		@{
-
-						<tr>
-							<th>Elevators</th>
-						</tr>
-						<tr>
-							<th>ID</th>
-							<th>Status</th>
-							<th>Model</th>
-							<th>Notes</th>
-							<th>Date Of Last Inspection</th>
-						</tr>
-			foreach (var customer in @ViewBag.customer)
+<table>
+	@{
+		<tr>
+			<th>Batteries</th>
+		</tr>
+		<tr>
+			<th>ID</th>
+			<th>Status</th>
+			<th>Certificate Of Operations</th>
+			<th>Notes</th>
+			<th>Date Of Commissioning</th>
+		</tr>
+		foreach (var customer in @ViewBag.customer)
+		{
+			foreach (var building in customer.Buildings)
 			{
-				foreach (var building in customer.Buildings)
+				foreach (var Battery in building.batteries)
 				{
-					foreach (var Battery in building.batteries)
+					<tr>
+						<td>@Battery.Id</td>
+						<td>@Battery.Status</td>
+						<td>@Battery.Certificate_Of_Operations</td>
+						<td>@Battery.Notes</td>
+						<td>@Battery.Date_Of_Commissioning</td>
+					</tr>
+					foreach (var Column in Battery.columns)
 					{
-
-						foreach (var Column in Battery.columns)
+						foreach (var Elevator in Column.elevators)
 						{
-							foreach (var Elevator in Column.elevators)
-							{
-											<tr>
-												<td>@Elevator.Id</td>
-												<td>@Elevator.Status</td>
-												<td>@Elevator.Model</td>
-												<td>@Elevator.Notes</td>
-												<td>@Elevator.Date_Of_Last_Inspection</td>
-											</tr>
-							}
+
 						}
 					}
 				}
 			}
-
 		}
-	</table>
+	}
+</table>
+
+<table>
+	@{
+		<tr>
+			<th>Columns</th>
+		</tr>
+		<tr>
+			<th>ID</th>
+			<th>Status</th>
+			<th>Notes</th>
+		</tr>
+		foreach (var customer in @ViewBag.customer)
+		{
+			foreach (var building in customer.Buildings)
+			{
+				foreach (var Battery in building.batteries)
+				{
+
+					foreach (var Column in Battery.columns)
+					{
+						<tr>
+							<td>@Column.Id</td>
+							<td>@Column.Status</td>
+							<td>@Column.Notes</td>
+						</tr>
+						foreach (var Elevator in Column.elevators)
+						{
+
+						}
+					}
+				}
+			}
+		}
+	}
+</table>
+
+<table>
+	@{
+
+		<tr>
+			<th>Elevators</th>
+		</tr>
+		<tr>
+			<th>ID</th>
+			<th>Status</th>
+			<th>Model</th>
+			<th>Notes</th>
+			<th>Date Of Last Inspection</th>
+		</tr>
+		foreach (var customer in @ViewBag.customer)
+		{
+			foreach (var building in customer.Buildings)
+			{
+				foreach (var Battery in building.batteries)
+				{
+
+					foreach (var Column in Battery.columns)
+					{
+						foreach (var Elevator in Column.elevators)
+						{
+							<tr>
+								<td>@Elevator.Id</td>
+								<td>@Elevator.Status</td>
+								<td>@Elevator.Model</td>
+								<td>@Elevator.Notes</td>
+								<td>@Elevator.Date_Of_Last_Inspection</td>
+							</tr>
+						}
+					}
+				}
+			}
+		}
+
+	}
+</table>
