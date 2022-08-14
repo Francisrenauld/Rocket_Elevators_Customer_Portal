@@ -57,7 +57,6 @@
 @section Scripts
 	{
 	<script type="text/javascript">
-
 $(function() {
     
     // Send the request and update course dropdown
@@ -83,7 +82,6 @@ $(function() {
             });
         } 
     });
-
 	           if ($("select#Building_id").val() == "") {
         $("select#Battery_id option").remove();
         var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
@@ -123,7 +121,6 @@ $(function() {
             });
         }
     });
-
     if ($("select#Battery_id").val() == "") {
         $("select#Column_id option").remove();
         var row = "<option value=\"" + "" + "\">" + "--Select--" + "</option>";
@@ -202,7 +199,6 @@ $(function() {
             });
         }
     });
-
             $.ajax({
                 dataType: "json",
                 cache: false,
@@ -222,39 +218,23 @@ $(function() {
                 }
             });
 });
-
 $(document).ready(function () {
     $("#building").show();
     $("#battery").hide();
     $("#column").hide();
     $("#elevator").hide();
-
 });
-
 $(document).on('change', "#Building_id", function () {
-
     $("#battery").show();
     $("#column").hide();
     $("#elevator").hide();
-
 });
 $(document).on('change', "#Battery_id", function () {
-
     $("#column").show();
-
     $("#elevator").hide();
-
 });
 $(document).on('change', "#Column_id", function () {
-
     $("#elevator").show();
 });
 </script>
 }
-
-
-
-
-
-
-
